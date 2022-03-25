@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+#root {
+  position: relative;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 80%;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
