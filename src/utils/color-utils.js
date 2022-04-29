@@ -1,0 +1,5 @@
+export const MyPink2 = '#ec5990'
+export const MyPink = '#f72372'
+export const MyFadePink = '#ffa1c4'
+export const MySecondary = '#979797'
+export const MySecondary2 = '#eae2e2'

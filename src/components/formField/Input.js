@@ -1,21 +1,28 @@
-import React from 'react'
-import { Field, ErrorMessage } from 'formik'
-import TextError from './TextError'
-import {TextField, FormControl} from "@mui/material";
+import {TextField} from "@mui/material";
+import React from "react";
 
-
-function Input (props) {
-    const { label, name, ...rest } = props
+// TODO check disableUnderline
+export const Input =  (props) => {
+    const { label, name, formik, type, variant="filled", size='' } = props
     return (
-        <div className='form-control'>
-            <label htmlFor={name}>{label}</label>
-            <Field id={name} name={name} {...rest} />
-            <ErrorMessage component={TextError} name={name} />
-        </div>
+        <>
+        <TextField
+            // InputProps={{ disableUnderline: true }}
+            fullWidth
+            autoComplete="off"
+            variant={variant}
+            id={name}
+            size={size}
+            name={name}
+            label={label}
+            type={type}
+            formik={formik}
+            value={formik.values[`${name}`]}
+            onChange={formik.handleChange}
+            error={formik.touched[`${name}`] && Boolean(formik.errors[`${name}`])}
+            helperText={formik.touched[`${name}`] && formik.errors[`${name}`]}
+        />
+            {/*<p>{formik.errors.name}</p>*/}
+        </>
     )
 }
-
-export default Input
-
-
-

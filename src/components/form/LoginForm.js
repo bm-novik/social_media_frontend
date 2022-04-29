@@ -1,76 +1,60 @@
-import React, {useState} from 'react'
-import {Formik, Form, useFormikContext} from 'formik'
+import {useFormik} from 'formik'
 import {FieldControl} from "../formField/FormControl";
-import { Link } from 'react-router-dom'
-import {useLoginData} from "../../hooks/UseauthData";
+
+import {useLoginData} from "../../hooks/UseAuth.data";
 import {loginValidationSchema} from "../../utils/yup-utils";
+import Box from "@mui/material/Box";
+import {FormSubmitButton} from "../button/Button.styles";
+import {Stack} from "@mui/material";
 
 
+export function LoginForm() {
+    // TODO Error handling
 
-function LoginForm () {
-    // State
-    const [submitValue, SetSubmitValue] = useState('Submit');
+    // Use Query BoilerPlate
+    const {mutate: loginData } = useLoginData()
+    const onSubmit = (values) => {
+        loginData(values)
+    }
 
-    // Use Query
-    const { mutate: loginData, isLoading, isError, error } = useLoginData()
-
-
-    // Formik
+    // Formik BoilerPlate
     const initialValues = {
         username: '',
         password: ''
     }
 
-    const onSubmit =( values, props )=> {
-        loginData(values)
-    }
-
-    console.log("Error: ", isError)
-    console.log("Loading: ", isLoading)
-
-
-
+    const formik = useFormik({
+        initialValues: initialValues,
+        validationSchema: loginValidationSchema,
+        onSubmit,
+    });
 
     return (
-        <Formik
-            initialValues={initialValues}
-            // validationSchema={loginValidationSchema}
-            onSubmit={onSubmit}
-        >
-            {formik => {
-                return (
-                    <Form>
-                        <FieldControl
-                            control='input'
-                            type='text'
-                            label='User name'
-                            name='username'
-                        />
-                        <FieldControl
-                            control='input'
-                            type='password'
-                            label='Password'
-                            name='password'
-                        />
-                        {isError && <p>{error.message}</p>}
-                        <button type='submit'>{submitValue}</button>
-                    </Form>
-                )
-            }}
-        </Formik>
-    )
-}
 
-export default LoginForm
+            <form autoComplete="off" onSubmit={formik.handleSubmit}>
+                <Stack spacing={1}>
+                    <Box key={'loginBox'} sx={{'& .MuiTextField-root': { my: 2, alignItems: 'start', display:'flex',spacing:1, width: '55ch', justifyContent:'flexStart'},}}>
+                <FieldControl
+                    control='input'
+                    formik={formik}
+                    label='User Name OR Email'
+                    name='username'
+                    type="text"
+                />
+                <FieldControl
+                    control='input'
+                    formik={formik}
+                    label='Password'
+                    name='password'
+                    type="Password"
+                />
+                <FormSubmitButton type='submit'
+                    // sx={{ '&:hover': {color: '#ec5990', background: '#ec5990', border: 1 }}}
+                >
+                        Login</FormSubmitButton>
+                    </Box>
+                </Stack>
+            </form>
 
-
-
-
- // TODO Error handling
-
-//isError: boolean;
-//     isIdle: boolean;
-//     isLoading: boolean;
-//     isSuccess: boolean;
-//     mutate: MutateFunction<TData, TError, TVariables, TContext>;
-//     reset: () => void;
+    );
+};

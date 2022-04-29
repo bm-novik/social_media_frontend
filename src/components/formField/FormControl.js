@@ -1,11 +1,8 @@
-import React from 'react'
-import Input from './Input'
-import Textarea from './Textarea'
-import Select from './Select'
-import RadioButtons from './RadioButtons'
-import CheckboxGroup from './CheckboxGroup'
-import DatePicker from './DatePicker'
-import {MUIInput} from "./MUIInput";
+import {Input} from "./Input";
+import {DatePickerInput} from "./DatePicker";
+import {TextareaField} from "./Textarea";
+import {InputModal} from "./InputModal";
+import {InputFile} from "./InputFile";
 
 
 export const FieldControl = (props) => {
@@ -13,18 +10,14 @@ export const FieldControl = (props) => {
     switch (control) {
         case 'input':
             return <Input {...rest} />
+        case 'modal':
+            return <InputModal {...rest} />
+        case 'file':
+            return <InputFile {...rest} />
         case 'textarea':
-            return <Textarea {...rest} />
-        case 'select':
-            return <Select {...rest} />
-        case 'radio':
-            return <RadioButtons {...rest} />
-        case 'checkbox':
-            return <CheckboxGroup {...rest} />
+            return <TextareaField {...rest} />
         case 'date':
-            return <DatePicker {...rest} />
-        case 'mui-input':
-            return <MUIInput {...rest} />
+            return <DatePickerInput {...rest} />
         default:
             return null
     }
