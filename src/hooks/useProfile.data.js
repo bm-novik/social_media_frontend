@@ -64,6 +64,7 @@ export const useFollowingData = (id) => {
     return (
         useQuery(['useFollowing', id], fetchUserFollowingsRequest,
             {
+                enabled:false,
                 keepPreviousData: true,
                 refetchOnWindowFocus: false,
                 refetchOnReconnect: false,
@@ -80,6 +81,7 @@ export const useFollowersData = (id) => {
     return (
         useQuery(['useFollowers', id], fetchUserFollowersRequest,
             {
+                enabled:false,
                 keepPreviousData: true,
                 refetchOnWindowFocus: false,
                 refetchOnReconnect: false,

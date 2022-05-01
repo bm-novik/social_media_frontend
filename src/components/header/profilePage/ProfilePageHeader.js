@@ -9,7 +9,7 @@ import {useFollowCreateData, useFollowingDeleteData} from "../../../hooks/usePro
 import {useQueryClient} from "react-query";
 
 
-export const ProfilePageHeader = ({ data, handleFollowersModalClick, handleFollowingModalClick }) => {
+export const ProfilePageHeader = ({ data, handleFollowModalClick }) => {
     const queryClient = useQueryClient()
 
     const onSuccessRemove = () => {
@@ -54,10 +54,10 @@ export const ProfilePageHeader = ({ data, handleFollowersModalClick, handleFollo
                         component="div">
 
                         {data?.profile?.post_count} posts
-                        <ProfileModalButton onClick={() => handleFollowersModalClick('other')}>
+                        <ProfileModalButton onClick={() => handleFollowModalClick('other', 'follower')}>
                             {data?.profile?.followers_count} followers
                         </ProfileModalButton>
-                        <ProfileModalButton onClick={() => handleFollowingModalClick('other')}>
+                        <ProfileModalButton onClick={() => handleFollowModalClick('other', 'following')}>
                             {data?.profile?.following_count} following
                         </ProfileModalButton>
                     </StyledProfileButtonLineTypography>

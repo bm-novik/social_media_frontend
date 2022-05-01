@@ -1,21 +1,21 @@
 import {Avatar, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-export const FollowModalListItem = ({follower, isFollow, handleProfileClick}) => {
+export const FollowModalListItem = ({follow, Button, handleProfileClick}) => {
 
     return (
         <ListItem
             sx={{' :hover': {backgroundColor: '#f3f3f3', cursor: 'pointer'}}}>
             <ListItemAvatar
-                onClick={() => handleProfileClick(follower)}>
-                <Avatar alt={follower.profile.first_name}
-                        src={follower.profile.profile_pic}/>
+                onClick={() => handleProfileClick(follow)}>
+                <Avatar alt={follow.profile.first_name}
+                        src={follow.profile.profile_pic}/>
             </ListItemAvatar>
 
             <ListItemText
-                onClick={() => handleProfileClick(follower)}
+                onClick={() => handleProfileClick(follow)}
                 primary={
-                    `${follower.username}`
+                    `${follow.username}`
                 }
                 secondary={
                     <>
@@ -24,12 +24,12 @@ export const FollowModalListItem = ({follower, isFollow, handleProfileClick}) =>
                             variant="body2"
                         >
                             <br/>
-                            {follower.profile.first_name} {follower.profile.last_name}
+                            {follow.profile.first_name} {follow.profile.last_name}
                         </Typography>
                     </>
                 }
             />
-            {isFollow(follower.profile.follow_status, follower)}
+            {Button(follow.profile.follow_status, follow)}
         </ListItem>
     );
 };

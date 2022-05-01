@@ -13,6 +13,7 @@ import {pink} from "@mui/material/colors";
 import {AuthenticationCheck} from "./PathControl";
 import {EditProfilePage} from "./pages/EditProfile.page";
 import {WindowLoader} from "./components/layout/icons/Loader";
+import {Test} from "./pages/Test";
 
 const LazyProfile = React.lazy(() => import('./pages/Profile.page'))
 const LazyFeed = React.lazy(() => import("./pages/Feed.page"))
@@ -46,6 +47,7 @@ function App() {
                 <Routes>
                     <Route path="accounts/login" element={<Login />}/>
                     <Route path="accounts/emailsignup" element={<Signup />}/>
+                    {/*<Route path="test" element={<Test />}/>*/}
                     <Route path="/" element={
                         <AuthenticationCheck >
                             <React.Suspense fallback={<WindowLoader/>}>
@@ -66,7 +68,9 @@ function App() {
                             </React.Suspense>
                         </AuthenticationCheck>}
                     />
-                    <Route path="accounts/edit" element={<AuthenticationCheck ><EditProfilePage /></AuthenticationCheck>}/>
+                    <Route path="accounts/edit" element={<AuthenticationCheck >
+                        <EditProfilePage />
+                    </AuthenticationCheck>}/>
                 </Routes>
             </StyledAppBox>
             <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/>

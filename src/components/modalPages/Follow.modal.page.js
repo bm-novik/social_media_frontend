@@ -4,12 +4,12 @@ import Modal from "@mui/material/Modal";
 import {Fade} from "@mui/material";
 
 // Components
-import {FollowersListItem} from "../list/ListControl";
-import {StyledAvatarWithDetailsList} from "../list/List.styles";
+import {FollowListItem, StyledAvatarWithDetailsList} from "../list/ListControl";
 import {StyledSmallSizeModalBox} from "../boxs/Box.styles";
 import {ModalHeader} from "../header/modal/ModalHeader";
 
-export const FollowersModal = ({open, handleModalClick, data, isSuccess, isLoading, isUser}) => {
+
+export const FollowModal = ({ open, handleModalClick, data, isSuccess, isLoading, isUser, followState }) => {
 
     return (
         <div>
@@ -22,20 +22,24 @@ export const FollowersModal = ({open, handleModalClick, data, isSuccess, isLoadi
             >
                 <Fade in={open}>
                     <StyledSmallSizeModalBox>
-                        <ModalHeader text={'Followers'} handleModalClick={handleModalClick}/>
+                        <ModalHeader text={followState} handleModalClick={handleModalClick}/>
 
                         <StyledAvatarWithDetailsList sx={{
                             '& .MuiList-root': {alignItems: 'center'},
                             '& .MuiListItem-root': {alignItems: 'center'}
                         }}>
+                            {/*TODO loading*/}
                             {isLoading && <p>loading...</p>}
                             {isSuccess
                                 &&
                                 data.map(follower => (
-
-                                    <FollowersListItem key={follower.id} follower={follower}
-                                                       handleModalClick={handleModalClick} isUser={isUser}/>
-
+                                    <FollowListItem
+                                        key={follower.id}
+                                        control={followState}
+                                        follow={follower}
+                                        isUser={isUser}
+                                        handleModalClick={handleModalClick}
+                                    />
                                 ))
                             }
                         </StyledAvatarWithDetailsList>

@@ -24,9 +24,8 @@ import { AuthenticatedAtom } from "../recoil/atom/AtomStore";
 
 // Components
 import { MySecondary } from "../utils/color-utils";
-import { FollowingModal } from "../components/modalPages/Following.modal.page";
 import { ProfilePageHeader } from "../components/header/profilePage/ProfilePageHeader";
-import { FollowersModal } from "../components/modalPages/Followers.modal.page";
+import { FollowModal } from "../components/modalPages/Follow.modal.page";
 import { StyledTabControllerBox } from "../components/boxs/Box.styles";
 import { ProfilePageImageList } from "../components/list/ListControl";
 import { WindowLoader } from "../components/layout/icons/Loader";
@@ -45,10 +44,14 @@ const UserProfile = () => {
 
     // Modal State control
     const [postModalOpen, setPostModalOpen] = useState(false)
-    const [followersModalOpen, setFollowersModalOpen] = useState(false)
+    const [followModalOpen, setFollowModalOpen] = useState(false)
+
     const [isUser, setIsUser] = useState(null)
-    const [followingModalOpen, setFollowingModalOpen] = useState(false)
-    const [value, setValue] = useState('post');
+    const [followState, setFollowState] = useState(null)
+
+
+    const [tabValue, setTabValue] = useState('post');
+
 
     // Handlers
     const handlePostModalClick = ({post}) => {
@@ -56,28 +59,22 @@ const UserProfile = () => {
         setPostModalOpen(!postModalOpen)
     }
 
-    const handleFollowersModalClick = (isUser) => {
+    const handleFollowModalClick = (isUser, follow) => {
         if (isUser === 'user') {
             setIsUser(true)
         } else {
             setIsUser(false)
         }
-        if (!followersModalOpen) followersRefetch()
-        setFollowersModalOpen(!followersModalOpen)
-    }
-
-    const handleFollowingModalClick = (isUser) => {
-        if (isUser === 'user') {
-            setIsUser(true)
-        } else {
-            setIsUser(false)
+        if (!followModalOpen) {
+            follow=== 'follower' ?
+                followersRefetch() : followingRefetch()
+            setFollowState(follow)
         }
-        if (!followingModalOpen) followingRefetch()
-        setFollowingModalOpen(!followingModalOpen)
+        setFollowModalOpen(!followModalOpen)
     }
 
     const handleTabChange = (newValue) => {
-        setValue(newValue);
+        setTabValue(newValue);
     }
 
     // React-Query Logic
@@ -100,6 +97,7 @@ const UserProfile = () => {
     return (
         <>
             {(isLoading || isFetching || isProfileDataLoading) && <WindowLoader/>}
+
             {/* MODALS */}
             <PostDetailsModal
                 open={postModalOpen}
@@ -107,21 +105,13 @@ const UserProfile = () => {
                 post={clickedPost}
             />
 
-            <FollowingModal
-                open={followingModalOpen}
-                handleModalClick={handleFollowingModalClick}
-                data={followingData?.data}
-                isSuccess={FollowingIsSuccess}
-                isLoading={FollowingIsLoading}
-                isUser={isUser}
-            />
-
-            <FollowersModal
-                open={followersModalOpen}
-                handleModalClick={handleFollowersModalClick}
-                data={followersData?.data}
-                isSuccess={FollowerIsSuccess}
-                isLoading={FollowerIsLoading}
+            <FollowModal
+                open={followModalOpen}
+                handleModalClick={handleFollowModalClick}
+                data={followState ==='follower' ? followersData?.data : followingData?.data}
+                isSuccess={followState ==='follower' ? FollowerIsSuccess : FollowingIsSuccess}
+                isLoading={followState ==='follower' ? FollowerIsLoading: FollowingIsLoading}
+                followState={followState}
                 isUser={isUser}
             />
 
@@ -139,13 +129,11 @@ const UserProfile = () => {
                     (userData?.data?.id === auth.profileId) ?
                         <AuthUserProfilePageHeader
                             data={userData?.data}
-                            handleFollowersModalClick={handleFollowersModalClick}
-                            handleFollowingModalClick={handleFollowingModalClick}
+                            handleFollowModalClick={handleFollowModalClick}
                         /> :
                         <ProfilePageHeader
                             data={userData?.data}
-                            handleFollowersModalClick={handleFollowersModalClick}
-                            handleFollowingModalClick={handleFollowingModalClick}
+                            handleFollowModalClick={handleFollowModalClick}
                         />
                     }
                 </Grid>
@@ -159,7 +147,7 @@ const UserProfile = () => {
 
                 }}>
                     {/* TABS SELECTION*/}
-                    <TabContext value={value}>
+                    <TabContext value={tabValue}>
                         <StyledTabControllerBox sx={{'& .MuiTabs-flexContainer': {justifyContent: 'space-around'}}}>
                             <ProfileTabsControl handleChange={handleTabChange}/>
                         </StyledTabControllerBox>

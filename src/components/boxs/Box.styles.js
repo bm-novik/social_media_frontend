@@ -116,6 +116,15 @@ export const StyledExtraSmallSizeModalBox = styled(StyledSmallSizeModalBox)(({th
     }
 ));
 
+export const StyledConfirmSmallSizeModalBox = styled(StyledSmallSizeModalBox)(({theme}) => (
+    {
+            maxWidth: '50ch',
+            minWidth: '29.5ch',
+            maxHeight: '37ch',
+            minHeight: '37ch',
+    }
+));
+
 export const StyledMidSizeModalBox = styled(Box)(({theme}) => (
     {
         position: 'absolute',

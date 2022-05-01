@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {UpdateProfilePictureModal} from "../../modalPages/UpdateProfilePicture.modal.page";
 import {useState} from "react";
 
-export const AuthUserProfilePageHeader = ({data, handleFollowersModalClick, handleFollowingModalClick}) => {
+export const AuthUserProfilePageHeader = ({data, handleFollowModalClick}) => {
     const navigate = useNavigate()
     const [openUpdatePicture, setOpenUpdatePicture] = useState(false)
 
@@ -49,10 +49,10 @@ export const AuthUserProfilePageHeader = ({data, handleFollowersModalClick, hand
                             component="div">
 
                             {data?.profile?.post_count} posts
-                            <ProfileModalButton onClick={() => handleFollowersModalClick('user')}>
+                            <ProfileModalButton onClick={() => handleFollowModalClick('user', 'follower')}>
                                 {data?.profile?.followers_count} followers
                             </ProfileModalButton>
-                            <ProfileModalButton onClick={() => handleFollowingModalClick('user')}>
+                            <ProfileModalButton onClick={() => handleFollowModalClick('user', 'following')}>
                                 {data?.profile?.following_count} following
                             </ProfileModalButton>
                         </StyledProfileButtonLineTypography>
