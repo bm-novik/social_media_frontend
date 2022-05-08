@@ -54,12 +54,16 @@ function App() {
                                 <LazyFeed />
                             </React.Suspense>
                         </AuthenticationCheck>}/>
+
+
                     <Route path="explore" element={
                         <AuthenticationCheck >
                             <React.Suspense fallback={<WindowLoader/>}>
                                 <LazyExplore />
                             </React.Suspense>
                         </AuthenticationCheck>}/>
+
+
                     <Route path="*" element={<NotFound />}/>
                     <Route path="/:id" element={
                         <AuthenticationCheck >

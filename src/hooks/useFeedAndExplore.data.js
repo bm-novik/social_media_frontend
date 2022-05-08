@@ -1,12 +1,19 @@
 import {useInfiniteQuery, useMutation, useQuery} from "react-query";
 import {NoBaseURLRequest, request} from "../utils/axios-utils";
 import {BASE_URL} from "../utils/config";
+import {FollowModal} from "../components/modalPages/Follow.modal.page";
+import {useState} from "react";
+import {useFollowersData} from "./useProfile.data";
 
 
 /* ---- Axios clients ---- */
 /* ---- INFINITE REQUESTS  ---- */
 
 const fetchInfiniteFeedRequest = (pageParam) => {
+    return NoBaseURLRequest({url: `${pageParam}`})
+}
+
+const fetchPostLikeRequest = (pageParam) => {
     return NoBaseURLRequest({url: `${pageParam}`})
 }
 
@@ -214,3 +221,57 @@ export const usePostChildrenCommentData = (onSuccess) => {
     )
 }
 
+// export const useLikesData = (id) => {
+//     return (
+//         useInfiniteQuery(['useLike'], ({ pageParam }) =>
+//                 fetchPostLikeRequest(pageParam),
+//             {
+//                 // enabled:false,
+//                 keepPreviousData: true,
+//                 refetchOnWindowFocus: false,
+//                 refetchOnReconnect: false,
+//                 onError: (error) => {
+//                     console.error("data from error: ", error)
+//                 }
+//             }
+//         )
+//     )
+// }
+
+export const useLikesData = (id) => {
+    return (
+        useQuery(['useLike'], ({ pageParam = `${BASE_URL}/${id}`}) =>
+        fetchPostLikeRequest(pageParam),
+            {
+                // enabled:false,
+                keepPreviousData: true,
+                refetchOnWindowFocus: false,
+                refetchOnReconnect: false,
+                onError: (error) => {
+                    console.error("data from error: ", error)
+                }
+            }
+        )
+    )
+}
+
+// const {isSuccess: likeIsSuccess, isLoading: likeIsLoading, data: likeData}
+//     = useLikesData(id)
+
+// const [likeModalOpen, setLikeModalOpen] = useState()
+
+// const handleLikeModalClick = () => {
+//
+//     setLikeModalOpen(!likeModalOpen)
+// }
+
+
+// <FollowModal
+//     open={likeModalOpen}
+//     handleModalClick={handleLikeModalClick}
+//     data={data?.data}
+//     isSuccess={likeIsSuccess}
+//     isLoading={likeIsLoading}
+//     followState={'like'}
+//     isUser={false}
+// />

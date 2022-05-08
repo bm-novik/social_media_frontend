@@ -51,7 +51,6 @@ export const UpdatePasswordForm = ({ setOpenAlert, setMessage, setSeverity, user
     });
 
 
-
     const EmptyBlock = () => {
         return (
             <Grid item xs={3} sx={{marginBottom: '8px'}}>
@@ -62,10 +61,6 @@ export const UpdatePasswordForm = ({ setOpenAlert, setMessage, setSeverity, user
 
     return (
         <Grid container component='form' autoComplete="off" onSubmit={formik.handleSubmit}>
-
-
-
-
 
             <StyledTabPaneRowGridContainer container>
                 <StyledTabPaneLabelGridItem item xs={3}

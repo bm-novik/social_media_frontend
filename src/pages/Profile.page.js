@@ -66,8 +66,8 @@ const UserProfile = () => {
             setIsUser(false)
         }
         if (!followModalOpen) {
-            follow=== 'follower' ?
-                followersRefetch() : followingRefetch()
+            // follow=== 'follower' ?
+            //     followersRefetch() : followingRefetch()
             setFollowState(follow)
         }
         setFollowModalOpen(!followModalOpen)

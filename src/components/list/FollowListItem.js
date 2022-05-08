@@ -55,7 +55,8 @@ export const FollowListItem = ({follow, handleModalClick, isUser, control}) => {
         handleModalClick()
     }
 
-    const followerButtonLogic = (status, following) => {
+    const followerButtonLogic = (status, follow) => {
+        // Status == Follow status
         switch (status) {
             case true:
                 if (isUser) {
@@ -67,7 +68,7 @@ export const FollowListItem = ({follow, handleModalClick, isUser, control}) => {
                 } else {
                     return <ProfileActionButton
                         handleClick={handleStopFollowingClick}
-                        value={following}
+                        value={follow}
                         text={'Following'}
                         variant={"outlined"}/>
                 }
@@ -80,6 +81,7 @@ export const FollowListItem = ({follow, handleModalClick, isUser, control}) => {
                                 handleClick={handleCreateClick}
                                 value={follow}
                                 textButton={true}
+                                buttonColor={true}
                                 text={'follow'}
                             />
                             <ProfileActionButton
@@ -93,7 +95,8 @@ export const FollowListItem = ({follow, handleModalClick, isUser, control}) => {
                 } else {
                     return <ProfileActionButton
                         handleClick={handleCreateClick}
-                        value={following}
+                        value={follow}
+                        buttonColor={true}
                         text={'Follow'}
                         variant={"outlined"}
                         sx={{'&.MuiButton-root': {backgroundColor: '#ec5990'}}}
@@ -105,21 +108,24 @@ export const FollowListItem = ({follow, handleModalClick, isUser, control}) => {
         }
     }
 
-    const followingButtonLogic = (status, following) => {
+    const followingButtonLogic = (status, follow) => {
         switch (status) {
             case true:
                 return <ProfileActionButton
                     handleClick={handleStopFollowingClick}
-                    value={following}
+                    value={follow}
                     text={isUser ? 'Remove' : 'Following'}
                     variant={"outlined"}/>
 
             case false:
                 return <ProfileActionButton
                     handleClick={handleCreateClick}
-                    value={following}
+                    value={follow}
+                    buttonColor={true}
                     text={'Follow'}
-                    variant={"outlined"}/>
+                    variant={"outlined"}
+                    sx={{'&.MuiButton-root': {backgroundColor: '#ec5990'}}}
+                />
             default:
                 return null
         }

@@ -1,8 +1,9 @@
 import Typography from "@mui/material/Typography";
 import {ProfileOutlinedButton, StyledPinkTextButton} from "./Button.styles";
+import {MyPink} from "../../utils/color-utils";
 
-export const ProfileActionButton = ({handleClick, text, variant, value, textButton = false}) => {
-
+export const ProfileActionButton = ({handleClick, text, variant, value, buttonColor= false, textButton = false}) => {
+        const pink = {backgroundColor:MyPink, color: 'white'}
     return (
         <Typography color="text.secondary"
                     gutterBottom
@@ -20,6 +21,7 @@ export const ProfileActionButton = ({handleClick, text, variant, value, textButt
                 </StyledPinkTextButton>
                 :
                 <ProfileOutlinedButton
+                    style={buttonColor ? pink : {}}
                     variant={variant}
                     onClick={() => handleClick(value)}
                 >
