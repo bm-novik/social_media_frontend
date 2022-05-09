@@ -3,7 +3,9 @@ import {AuthenticatedAtom} from "./recoil/atom/AtomStore";
 import {useLocation, Navigate} from "react-router-dom";
 import {useCheckAuthenticationData} from "./hooks/UseAuth.data";
 import {BASE_URL} from "./utils/config";
-export const AuthenticationCheck = ({children}) => {
+
+
+export const AuthenticationCheck = ({ children }) => {
     const authenticated = useRecoilValue(AuthenticatedAtom)
     const setAuth = useSetRecoilState(AuthenticatedAtom)
     const location = useLocation()
@@ -23,11 +25,11 @@ export const AuthenticationCheck = ({children}) => {
     }
 
     const onError = () => {
-        // window.localStorage.removeItem('token')
+        window.localStorage.removeItem('token')
         return (<Navigate to='/accounts/login' state={{ path: location.pathname }} />)
     }
 
-    const {mutate, isSuccess} = useCheckAuthenticationData(onSuccess, onError)
+    const {mutate, isSuccess, isError} = useCheckAuthenticationData(onSuccess, onError)
     const extraStep = (token) => mutate(token)
 
 
@@ -44,7 +46,7 @@ export const AuthenticationCheck = ({children}) => {
     } else {
         return children
     }
-    return isSuccess && children
+    return (isSuccess && children) || (isError && (<Navigate to='/accounts/login' state={{ path: location.pathname }} />))
 
 }
 

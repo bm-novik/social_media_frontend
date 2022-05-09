@@ -4,18 +4,15 @@ import {BASE_URL} from "./config";
 export const loginClient = axios.create(
     {
         baseURL: BASE_URL,
-        headers: {'Content-Type': 'application/json',
-        }
+        headers: {'Content-Type': 'application/json'}
     }
 )
-
 
 
 export const client = axios.create(
     {
         baseURL: BASE_URL,
-        headers: {'Content-Type': 'application/json',
-        }
+        headers: {'Content-Type': 'application/json'}
     }
 )
 

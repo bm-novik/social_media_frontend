@@ -30,7 +30,7 @@ export const SignupForm = () => {
 
     const onSubmit = (values) => {
         let formData = new FormData()
-        formData.append('profile_pic', file)
+        formData.append('profile_pic', (file === undefined) ? null : file)
         formData.append('username', values.username)
         formData.append('email', values.email)
         formData.append('password', values.password)
@@ -42,6 +42,10 @@ export const SignupForm = () => {
         formData.append('website', values.website)
         formData.append('birth_day', values.birth_day)
         formData.append('gender', Object.keys(gender_dict).find(k => gender_dict[k] === values.gender))
+        for (let x of formData){
+            console.log(x)
+        }
+
         singupData(formData)
     }
 
