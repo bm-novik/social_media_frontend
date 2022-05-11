@@ -1,6 +1,6 @@
 import {Avatar, Divider, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {BASE_URL} from "../../utils/config";
+import {BASE_URL, IMAGE_URL} from "../../utils/config";
 
 export const NotificationListItem = ({notification, last, handleClick}) => {
     console.log(notification)
@@ -9,7 +9,7 @@ export const NotificationListItem = ({notification, last, handleClick}) => {
             <ListItem onClick={() => handleClick(notification)}>
                 <ListItemAvatar>
                     <Avatar alt={`${notification.sender.profile.first_name}`}
-                            src={`${BASE_URL}${notification.sender.profile.profile_pic}`}/>
+                            src={`${IMAGE_URL}${notification.sender.profile.profile_pic}`}/>
                 </ListItemAvatar>
                 <ListItemText
                     primary={`${notification.sender.profile.first_name} ${notification.sender.profile.last_name}`}

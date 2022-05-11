@@ -4,7 +4,7 @@ import {useResetRecoilState, useSetRecoilState} from "recoil";
 
 import {useNavigate} from "react-router-dom";
 import {AuthenticatedAtom} from "../recoil/atom/AtomStore";
-import {BASE_URL} from "../utils/config";
+import {BASE_URL, IMAGE_URL} from "../utils/config";
 
 
 /* ---- Axios clients ---- */
@@ -89,7 +89,7 @@ export const useRegisterData = options => {
                             nickname: data.user.username,
                             firstName: data.user.profile.first_name,
                             lastName: data.user.profile.last_name,
-                            image: `${BASE_URL}${data.user.profile.profile_pic}`,
+                            image: `${IMAGE_URL}${data.user.profile.profile_pic}`,
                             token: data.token,
                         }
                     )

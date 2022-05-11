@@ -7,7 +7,7 @@ import {useUpdateProfilePictureData} from "../../hooks/useProfile.data";
 import {useQueryClient} from "react-query";
 import {useRecoilState} from "recoil";
 import {AuthenticatedAtom} from "../../recoil/atom/AtomStore";
-import {BASE_URL} from "../../utils/config";
+import {BASE_URL, IMAGE_URL} from "../../utils/config";
 import {MyPink, MySecondary} from "../../utils/color-utils";
 import List from "@mui/material/List";
 
@@ -24,7 +24,7 @@ export const UpdateProfilePictureModal = ({open, handleModalClick}) => {
                 nickname: auth.username,
                 firstName: auth.first_name,
                 lastName: auth.last_name,
-                image: `${BASE_URL}${data.profile.profile_pic}`,
+                image: `${IMAGE_URL}${data.profile.profile_pic}`,
                 token: window.localStorage.getItem('token')
             }
         )

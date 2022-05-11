@@ -2,7 +2,7 @@ import {useRecoilValue, useSetRecoilState} from "recoil";
 import {AuthenticatedAtom} from "./recoil/atom/AtomStore";
 import {useLocation, Navigate} from "react-router-dom";
 import {useCheckAuthenticationData} from "./hooks/UseAuth.data";
-import {BASE_URL} from "./utils/config";
+import {BASE_URL, IMAGE_URL} from "./utils/config";
 
 
 export const AuthenticationCheck = ({ children }) => {
@@ -17,7 +17,7 @@ export const AuthenticationCheck = ({ children }) => {
                 nickname: data.username,
                 firstName: data.profile.first_name,
                 lastName: data.profile.last_name,
-                image: `${BASE_URL}${data.profile.profile_pic}`,
+                image: `${IMAGE_URL}${data.profile.profile_pic}`,
                 token: window.localStorage.getItem('token')
             }
         )

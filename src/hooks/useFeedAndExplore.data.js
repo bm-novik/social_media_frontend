@@ -1,10 +1,6 @@
 import {useInfiniteQuery, useMutation, useQuery} from "react-query";
 import {NoBaseURLRequest, request} from "../utils/axios-utils";
 import {BASE_URL} from "../utils/config";
-import {FollowModal} from "../components/modalPages/Follow.modal.page";
-import {useState} from "react";
-import {useFollowersData} from "./useProfile.data";
-
 
 /* ---- Axios clients ---- */
 /* ---- INFINITE REQUESTS  ---- */
@@ -67,6 +63,11 @@ const deleteLikeRequest = likeData => {
 const addCommentRequest = commentData => {
     return request({url: '/comment/', method: 'post', data: commentData})
 }
+
+const addPic2S3Data = (pageParam, pic) => {
+    return request({url: '/comment/', method: 'post', data: pic})
+}
+
 
 
 /* ---- ReactQuery hooks ---- */
@@ -141,7 +142,7 @@ export const useAddCommentData = onSuccess => {
 
 export const usePostExploreListData = (getNextPageParam) => {
     return (
-        useInfiniteQuery(['usePostExploreList'], ({ pageParam = '/post/explore_post' }) =>
+        useInfiniteQuery(['usePostExploreList'], ({pageParam = '/post/explore_post'}) =>
                 fetchPostExploreListRequest(pageParam),
             {
                 keepPreviousData: true,
@@ -159,7 +160,7 @@ export const usePostExploreListData = (getNextPageParam) => {
 
 export const usePostFeedListData = (getNextPageParam) => {
     return (
-        useInfiniteQuery(['usePostFeedList'], ({ pageParam = `${BASE_URL}/post` }) =>
+        useInfiniteQuery(['usePostFeedList'], ({pageParam = `${BASE_URL}/post`}) =>
                 fetchInfiniteFeedRequest(pageParam),
             {
                 keepPreviousData: true,
@@ -186,7 +187,7 @@ export const useTopFiveData = () => {
 
 export const usePostParentCommentData = (onSuccess, url) => {
     return (
-        useInfiniteQuery(['usePostParentComment'], ({ pageParam = url}) =>
+        useInfiniteQuery(['usePostParentComment'], ({pageParam = url}) =>
                 fetchPostParentCommentRequest(pageParam),
             {
                 refetchOnWindowFocus: false,
@@ -205,8 +206,8 @@ export const usePostParentCommentData = (onSuccess, url) => {
 export const usePostChildrenCommentData = (onSuccess) => {
 
     return (
-        useInfiniteQuery(['usePostChildrenComment'], ({ pageParam }) =>
-            fetchPostChildrenCommentRequest(pageParam),
+        useInfiniteQuery(['usePostChildrenComment'], ({pageParam}) =>
+                fetchPostChildrenCommentRequest(pageParam),
             {
                 enabled: false,
                 refetchOnWindowFocus: false,
@@ -221,27 +222,11 @@ export const usePostChildrenCommentData = (onSuccess) => {
     )
 }
 
-// export const useLikesData = (id) => {
-//     return (
-//         useInfiniteQuery(['useLike'], ({ pageParam }) =>
-//                 fetchPostLikeRequest(pageParam),
-//             {
-//                 // enabled:false,
-//                 keepPreviousData: true,
-//                 refetchOnWindowFocus: false,
-//                 refetchOnReconnect: false,
-//                 onError: (error) => {
-//                     console.error("data from error: ", error)
-//                 }
-//             }
-//         )
-//     )
-// }
 
 export const useLikesData = (id) => {
     return (
-        useQuery(['useLike'], ({ pageParam = `${BASE_URL}/${id}`}) =>
-        fetchPostLikeRequest(pageParam),
+        useQuery(['useLike'], ({pageParam = `${BASE_URL}/${id}`}) =>
+                fetchPostLikeRequest(pageParam),
             {
                 // enabled:false,
                 keepPreviousData: true,
@@ -255,23 +240,17 @@ export const useLikesData = (id) => {
     )
 }
 
-// const {isSuccess: likeIsSuccess, isLoading: likeIsLoading, data: likeData}
-//     = useLikesData(id)
 
-// const [likeModalOpen, setLikeModalOpen] = useState()
-
-// const handleLikeModalClick = () => {
-//
-//     setLikeModalOpen(!likeModalOpen)
-// }
-
-
-// <FollowModal
-//     open={likeModalOpen}
-//     handleModalClick={handleLikeModalClick}
-//     data={data?.data}
-//     isSuccess={likeIsSuccess}
-//     isLoading={likeIsLoading}
-//     followState={'like'}
-//     isUser={false}
-// />
+export const usePic2S3Data = (onSuccess, url) => {
+    return (
+        useMutation(['Pic2S3Data'], ({pageParam = url}) =>
+                addCommentRequest(pageParam),
+            {
+                onSuccess,
+                onError: (error) => {
+                    console.error("data from error: ", error)
+                }
+            }
+        )
+    )
+}
